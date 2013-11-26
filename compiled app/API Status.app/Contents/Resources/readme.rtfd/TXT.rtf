@@ -1,0 +1,327 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
+{\fonttbl\f0\fnil\fcharset0 Tahoma;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 Consolas;
+\f3\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red0\green30\blue136;\red122\green145\blue144;\red245\green245\blue247;
+\red56\green56\blue59;\red0\green77\blue127;\red0\green115\blue109;\red13\green35\blue105;\red245\green245\blue247;
+\red170\green13\blue145;\red63\green110\blue116;\red92\green38\blue153;\red146\green165\blue164;\red255\green0\blue50;
+\red146\green165\blue164;\red38\green38\blue38;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
+\margl1440\margr1440\vieww13440\viewh20220\viewkind0
+\deftab720
+\pard\pardeftab720\li200\sa100
+
+\f0\b\fs40 \cf2 Adding the SDK to Your Project\
+\pard\pardeftab720\li200\sa140
+
+\fs34 \cf0 Add SDK files to your project\
+\pard\pardeftab720\li200\sa100
+
+\b0\fs26 \cf0 Copy the GOVDataSDK folder to your Xcode project.\
+\pard\pardeftab720\li200\sa140
+
+\b\fs34 \cf0 Add Required Frameworks\
+\pard\pardeftab720\li200\sa100
+
+\b0\fs26 \cf0 Select your project and then select the project target in the middle pane. From the right pane select Build Phases. Expand the "Link Binary With Libraries" section. Add the required frameworks:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa80
+\ls1\ilvl0\cf0 {\listtext	\'95	}libz.dylib\
+{\listtext	\'95	}MobileCoreServices.framework\
+{\listtext	\'95	}CFNetwork.framework\
+{\listtext	\'95	}SystemConfiguration.framework\
+\pard\pardeftab720\li200\sa100
+\cf0 Frameworks\uc0\u8232 
+\f1\fs24 {{\NeXTGraphic api-sample.jpg \width1515 \height720 \noorient
+}¬}
+\f0\fs26 \
+\pard\pardeftab720\li200\sa100
+
+\b\fs40 \cf2 Using the SDK\
+\pard\pardeftab720\li200\sa140
+
+\fs34 \cf0 Reference the DOL Data API in your source file\
+\pard\pardeftab720\li200\sa100
+
+\b0\fs26 \cf0 In the source files that will make DOL Data requests add the following imports:\
+\pard\pardeftab720
+
+\f2\fs22 \cf3 \cb4 #import "GOVDataRequest.h"\cf5 \
+\cf3 #import "GOVDataContext.h"
+\fs32 \cf0 \
+\pard\pardeftab720\li200\sa140
+
+\f0\b\fs34 \cf0 \cb1 Prepare your class for delegate callbacks\
+\pard\pardeftab720\li200\sa100
+
+\b0\fs26 \cf0 The GOV Data SDK processes requests asynchronously to prevent locking up the UI while the data is requested and processed. To achieve this the SDK makes use of delegate methods. To successfully retrieve data it is required to implement the three 
+\b GOVDataRequestDelegate 
+\b0 methods and set your class as the delegate for the request. The methods will be invoked when the results have been processed or when an error occurs.\
+1. Implement the 
+\b GOVDataRequestDelegate 
+\b0 protocol
+\b  
+\b0 to the class that will receive and process the API responses\
+Example:\
+\pard\pardeftab720
+
+\f2\fs22 \cf6 \cb4 @interface\cf5  \cf7 RootViewController\cf5  \cf3 :\cf5  \cf7 UITableViewController\cf3 <\cf7 GOVDataRequestDelegate\cf3 >
+\fs32 \cf0 \
+\pard\pardeftab720\li200\sa100
+
+\f0\fs26 \cf0 \cb1 2. Add the delegate methods to your class\
+\pard\pardeftab720
+
+\f2\fs22 \cf3 \cb4 //Results  delegate\cf5 \
+\cf3 -(\cf8 void\cf3 )\cf5 govDataRequest\cf3 :(\cf7 GOVDataRequest\cf5  \cf3 *)\cf5 request didCompleteWithResults\cf3 :(\cf7 NSArray\cf5  \cf3 *)\cf5 resultsArray \cf3 \{\cf5 \
+     \cf3 //for Standard DOL API datasets\cf5 \
+	           \cf3 //Add your code here\cf5 \
+	           \cf3 //resultsArray is an array of NSDictionaries\cf5 \
+	           \cf3 //One NSDictionary per table row \cf5 \
+    \cf3 //for Standard DOL Data service - Summer job Plus,\cf5 \
+	           \cf3 //Add your code here\cf5 \
+	           \cf3 //resultsArray is an array of NSDictionaries\cf5 \
+	           \cf3 //Get the value of first key from NSDictionary in form of NSDictionaries.\cf5 \
+		   \cf3 //From NSDictionaries , look for "getJobsListing" which return the NSDictionary object.\cf5 \
+		   \cf3 //From getJobsListing object which is type of NSDictionaries , object using key "items" , result is an array , each element in array is job result.\cf5 \
+			\
+\cf3 \}\cf5 \
+\
+\cf3 -(\cf8 void\cf3 )\cf5 govDataRequest\cf3 :(\cf7 GOVDataRequest\cf5  \cf3 *)\cf5 request didCompleteWithDictionaryResults\cf3 :(\cf7 NSDictionary\cf5  \cf3 *)\cf5 resultsDictionary \cf3 \{\cf5 \
+    \
+    \cf3 // for web services that are not processed by the SDK as an array. For example, the FCC's Public Inspection Files API\cf5 \
+    \cf3 // consult the API's documentation regarding data structure or use NSLog to inspect the data\cf5 \
+\cf3 \}\cf5 \
+\
+\
+\cf3 //Error delegate  \cf5 \
+\cf3 -(\cf8 void\cf3 )\cf5 dolDataRequest\cf3 :(\cf7 GOVDataRequest\cf5  \cf3 *)\cf5 request didCompleteWithError\cf3 :(\cf7 NSString\cf5  \cf3 *)\cf5 error \cf3 \{\cf5 \
+	\cf3 //Add your code here to show  / handle error\cf5 \
+\cf3 \}\
+\cb9 \
+// Catch-all delegate\
+\pard\tx560\pardeftab560\pardirnatural
+\cf0 \CocoaLigature0 -(\cf10 void\cf0 )govDataRequest:(\cf11 GOVDataRequest\cf0  *)request didCompleteWithUnParsedResults:(\cf12 NSString\cf0  *)resultsString \{\
+ \
+    \cf13 // \cb4 \CocoaLigature1 De\cf3 legate to catch any data that could not be parsed\cf0 \cb9 \CocoaLigature0 \
+    \
+\}
+\fs32 \cb4 \CocoaLigature1 \
+\pard\pardeftab720\li200\sa140
+
+\f0\b\fs34 \cf0 \cb1 Making API Calls\
+\pard\pardeftab720\li200\sa100
+
+\b0\fs26 \cf0 The 
+\b GOVDataRequest
+\b0  class is used to make API calls. It requires a context object to be passed to its constructor in order to get the API key and URL information needed for the requests. The 
+\b GOVDataContext
+\b0  is the context class used to hold this information.\
+You can also pass arguments to the API call by adding them to a NSDictionary as key/value pairs and passing it as the second parameter of the 
+\b callAPIMethod
+\b0  method. Valid arguments are defined later in this document\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa80
+\ls2\ilvl0\cf0 {\listtext	\'95	}Instantiate a 
+\b GOVDataContext
+\b0  object\
+{\listtext	\'95	}Instantiate a 
+\b GOVDataRequest
+\b0  object and pass the context\
+{\listtext	\'95	}Set your class as the delegate for the 
+\b GOVDataRequest
+\b0 \
+{\listtext	\'95	}Create a 
+\b NSDictionary
+\b0  and store all the API arguments as key/value pairs.\
+{\listtext	\'95	}Call the 
+\b callAPIMethod
+\b0  method, passing the API name and the arguments (or null if there are no arguments)\
+\pard\tx720\pardeftab720\sa80
+\cf0 \
+\pard\pardeftab720\li200\sa100
+\cf0 \ul \ulc0 Sample code to make requests for standard DOL API datasets:\ulnone \
+\pard\pardeftab720
+
+\f2\fs22 \cf3 \cb4 //API  and URL constants\cf5 \
+\cf3 #define\cf5  API_KEY \cf3 @\cf14 "YOUR API KEY"\cf5  \
+\cf3 #define\cf5  API_SECRET \cf3 @\cf14 "YOUR SHARED SECRET"\cf5  \
+\cf3 #define\cf5   API_HOST \cf3 @\cf14 "http://api.dol.gov"\cf5 \
+\cf3 #define\cf5  API_URL \cf3 @\cf14 "/V1"\cf5 \
+\cf3 /////////////////////////////////////\cf5 \
+\
+\cf3 //Instantiate  Gov Data context object\cf5 \
+\cf3 //This  object stores the API information required to make requests\cf5 \
+\pard\pardeftab720
+\cf7 GOVDataContext\cf5  \cf3 *\cf5 context \cf3 =\cf5  \cf3 [[\cf7 GOVDataContext\cf5  alloc\cf3 ]\cf5  initWithAPIKey\cf3 :\cf5 API_KEY \cf7 Host\cf3 :\cf5 API_HOST \cf7 SharedSecret\cf3 :\cf5 API_SECRET APIURL\cf3 :\cf5 API_URL\cf3 ]\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Instantiate  new request object. Pass the context that contains all the API key info.  This object is used even when there is no API key.\cf5 \
+\pard\pardeftab720
+\cf7 GOVDataRequest\cf5  \cf3 *\cf5 dataRequest \cf3 =\cf5  \cf3 [[\cf7 GOVDataRequest\cf5  alloc\cf3 ]\cf5 initWithContext\cf3 :\cf5 context\cf3 ];\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Set  this class as the one that responds to the delegate methods \cf5 \
+dataRequest\cf3 .\cf8 delegate\cf5  \cf3 =\cf5  \cf8 self\cf3 ;\cf5  \
+\
+\cf3 //API  you want to fetch data from \cf5 \
+\pard\pardeftab720
+\cf7 NSString\cf5  \cf3 *\cf5 method \cf3 =\cf5  \cf3 @\cf14 "FORMS/Agencies"\cf3 ;\cf5  \
+\
+\pard\pardeftab720
+\cf3 //Build NSDictionary arguments\cf5 \
+\cf3 //Example to retrieve top 10 records and just get one field. \cf5 \
+\pard\pardeftab720
+\cf7 NSDictionary\cf5  \cf3 *\cf5 arguments \cf3 =\cf5  \cf3 [\cf7 NSDictionary\cf5  dictionaryWithObjectsAndKeys\cf3 :@\cf14 "10"\cf3 ,\cf5  \cf3 @\cf14 "top"\cf3 ,\cf5  \cf3 @\cf14 "AgencyName"\cf3 ,\cf5  \cf3 @\cf14 "select"\cf3 ,\cf5  \cf8 nil\cf3 ];\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Set the timeout.  Set this higher for long-loading APIs\cf5 \
+\pard\pardeftab720
+\cf8 int\cf5  timeOut \cf3 =\cf5  \cf6 20\cf3 ;\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Make API call\cf5 \
+\cf3 [\cf5 dataRequest callAPIMethod\cf3 :\cf5 method withArguments\cf3 :\cf5 arguments andTimeOut\cf3 :\cf5 timeOut\cf3 ];
+\fs32 \cf0 \
+\pard\pardeftab720
+
+\f0 \cf0 \cb1 \
+
+\fs26 The example above uses DOL's API.  Some federal APIs' URLs are structured differently.  For example, let's look at http://data.fcc.gov/api/block/find?latitude=40.0&longitude=-85\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls3\ilvl0\cf0 {\listtext	\'95	}API_KEY = ""\
+{\listtext	\'95	}API_SECRET = ""\
+{\listtext	\'95	}API_Host = "http://data.fcc.gov"\
+{\listtext	\'95	}API_URL = "/api/block"\
+{\listtext	\'95	}method = "find"
+\fs32 \
+\pard\pardeftab720
+\cf0 \
+\pard\pardeftab720
+\cf0 \
+
+\fs26 Let's look at the Census Bureau.  For example, 
+\f3 http://api.census.gov/data/2010/acs5?key=\{your key\}&get=B02001_001E,NAME&for=state:06,36
+\f0 \
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls4\ilvl0\cf0 {\listtext	\'95	}API_KEY = "YOUR_API_KEY"\
+{\listtext	\'95	}API_SECRET = ""\
+{\listtext	\'95	}API_Host = "http://api.census.gov"\
+{\listtext	\'95	}API_URL = "/data/2010"\
+{\listtext	\'95	}method = "acs5"\
+\pard\tx720\pardeftab720
+
+\fs32 \cf0 \
+\pard\pardeftab720\li200\sa100
+
+\fs26 \cf0 \ul Sample code to make requests for DOL Service Operation (e.g Summer Jobs Plus) :\ulnone \
+\pard\pardeftab720
+
+\f2\fs22 \cf3 \cb4 //API  and URL constants\cf5 \
+\cf3 #define\cf5  API_KEY \cf3 @\cf14 "YOUR API KEY"\cf5  \
+\cf3 #define\cf5  API_SECRET \cf3 @\cf14 "YOUR SHARED SECRET"\cf5  \
+\cf3 #define\cf5   API_HOST \cf3 @\cf14 "http://api.dol.gov"\cf5 \
+\cf3 /////////////////////////////////////\cf5 \
+\
+\cf3 //Instantiate  Gov Data context object\cf5 \
+\cf3 //This  object stores the API information required to make requests\cf5 \
+\pard\pardeftab720
+\cf7 GOVDataContext\cf5  \cf3 *\cf5 context \cf3 =\cf5  \cf3 [[\cf7 GOVDataContext\cf5  alloc\cf3 ]\cf5  initWithAPIKey\cf3 :\cf5 API_KEY \cf7 Host\cf3 :\cf5 API_HOST \cf7 SharedSecret\cf3 :\cf5 API_SECRET APIURL\cf3 :\cf5 API_URL\cf3 ]\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Instantiate  new request object. Pass the context that contains all the API key info.  This object is used even when there is no API key.\cf5 \
+\pard\pardeftab720
+\cf7 GOVDataRequest\cf5  \cf3 *\cf5 dataRequest \cf3 =\cf5  \cf3 [[\cf7 GOVDataRequest\cf5  alloc\cf3 ]\cf5 initWithContext\cf3 :\cf5 context\cf3 ];\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Set  this class as the one that responds to the delegate methods \cf5 \
+dataRequest\cf3 .\cf5 delegate \cf3 =\cf5  self\cf3 ;\cf5  \
+\
+\cf3 //API  you want to fetch data from \cf5 \
+\pard\pardeftab720
+\cf7 NSString\cf5  \cf3 *\cf5 method \cf3 =\cf5  \cf3 @\cf14 "SummerJobs/getJobsListing"\cf3 ;\cf5  \
+\
+\pard\pardeftab720
+\cf3 //Build NSDictionary arguments\cf5 \
+\cf3 //set value of format,query,region,locality and skipcount\cf5 \
+\cf3 //Please Note : Each String typed parameter must be surrounded in quotes in order to work correctly. \cf5 \
+\cf3 //These quotes are then Url encoded and passed to the Service Operation.\cf5 \
+\cf3 //Each parameter that is assigned null should be left blank\cf5 \
+\
+\pard\pardeftab720
+\cf7 NSDictionary\cf5  \cf3 *\cf5 arguments \cf3 =\cf5  \cf3 [\cf7 NSDictionary\cf5  dictionaryWithObjectsAndKeys\cf3 :@\cf14 "'json'"\cf3 ,\cf5  \cf3 @\cf14 "format"\cf3 ,\cf5  \cf3 @\cf14 "'farm'"\cf3 ,\cf5  \cf3 @\cf14 "query"\cf3 ,\cf5  \cf3 @\cf14 ""\cf3 ,\cf5  \cf3 @\cf14 "region"\cf3 ,\cf5  \cf3 @\cf14 ""\cf3 ,\cf5  \cf3 @\cf14 "locality"\cf3 ,\cf5  \cf3 @\cf14 "1"\cf3 ,\cf5  \cf3 @\cf14 "skipcount"\cf3 ,\cf5  nil\cf3 ];\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Set the timeout.  Set this higher for long-loading APIs\cf5 \
+\pard\pardeftab720
+\cf7 int\cf5  timeOut \cf3 =\cf5  \cf6 20\cf3 ;\cf5 \
+\
+\pard\pardeftab720
+\cf3 //Make API call\cf5 \
+\cf3 [\cf5 dataRequest callAPIMethod\cf3 :\cf5 method withArguments\cf3 :\cf5 arguments andTimeOut\cf3 :\cf5 timeOut\cf3 ];
+\fs32 \cf0 \
+\pard\pardeftab720
+
+\f0 \cf0 \cb1 \
+\pard\pardeftab720\li200\sa100
+
+\fs26 \cf0 The callAPIMethod triggers the SDK to process the request, add authorization headers and invoke the delegate methods with the results or with an error message. Once the process has completed one of the three delegate methods from the GOVDataRequestDelegate\'a0\'a0 protocol will be called. If successful, the 
+\b didCompleteWithResults
+\b0  or 
+\b didCompleteWithDictionaryResults
+\b0  method will be called and the resultsArray or resultsDictionary parameter, depending on the format of the data you received, will contain the data you requested. If the request failed for any reason, the 
+\b didCompleteWithError
+\b0  will be called and the error parameter will contain a description of the error.\
+\pard\pardeftab720
+
+\f2\fs22 \cf3 \cb4 //Results  delegate\cf5 \
+\cf3 -(\cf8 void\cf3 )\cf5 govDataRequest\cf3 :(\cf7 GOVDataRequest\cf5  \cf3 *)\cf5 request didCompleteWithResults\cf3 :(\cf7 NSArray\cf5  \cf3 *)\cf5 resultsArray \cf3 \{\cf5 \
+     \cf3 //for Standard DOL API datasets\cf5 \
+	           \cf3 //Add your code here\cf5 \
+	           \cf3 //resultsArray is an array of NSDictionaries\cf5 \
+	           \cf3 //One NSDictionary per table row \cf5 \
+    \cf3 //for Standard DOL Data service - Summer job Plus,\cf5 \
+	           \cf3 //Add your code here\cf5 \
+	           \cf3 //resultsArray is an array of NSDictionaries\cf5 \
+	           \cf3 //Get the value of first key from NSDictionary in form of NSDictionaries.\cf5 \
+		   \cf3 //From NSDictionaries , look for "getJobsListing" which return the NSDictionary object.\cf5 \
+		   \cf3 //From getJobsListing object which is type of NSDictionaries , object using key "items" , result is an array , each element in array is job result.\cf5 \
+			\
+\cf3 \}\cf5 \
+\
+\cf3 -(\cf8 void\cf3 )\cf5 govDataRequest\cf3 :(\cf7 GOVDataRequest\cf5  \cf3 *)\cf5 request didCompleteWithDictionaryResults\cf3 :(\cf7 NSDictionary\cf5  \cf3 *)\cf5 resultsDictionary \cf3 \{\cf5 \
+    \
+    \cf3 // for web services that are not processed by the SDK as an array. For example, the FCC's Public Inspection Files API\cf5 \
+    \cf3 // consult the API's documentation regarding data structure or use NSLog to inspect the data\cf5 \
+\cf3 \}\cf5 \
+\
+\
+\cf3 //Error delegate  \cf5 \
+\cf3 -(\cf8 void\cf3 )\cf5 dolDataRequest\cf3 :(\cf7 GOVDataRequest\cf5  \cf3 *)\cf5 request didCompleteWithError\cf3 :(\cf7 NSString\cf5  \cf3 *)\cf5 error \cf3 \{\cf5 \
+	\cf3 //Add your code here to show  / handle error\cf5 \
+\cf3 \}\
+\pard\pardeftab720
+\cf3 \
+// Catch-all delegate\
+\pard\tx560\pardeftab560\pardirnatural
+\cf0 \cb4 \CocoaLigature0 -(\cf10 void\cf0 )govDataRequest:(\cf11 GOVDataRequest\cf0  *)request didCompleteWithUnParsedResults:(\cf12 NSString\cf0  *)resultsString \{\
+ \
+    \cf15 // \cb4 \CocoaLigature1 De\cf3 \cb4 legate to catch any data that could not be parsed\cf0 \cb4 \CocoaLigature0 \
+    \
+\}
+\fs32 \cb4 \CocoaLigature1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls5\ilvl0
+\f0 \cf0 \cb1 \
+\pard\pardeftab720
+\cf0 \
+\pard\pardeftab720\li200\sa140
+
+\b\fs34 \cf0 API Method Arguments\
+\pard\pardeftab720
+
+\f1\b0\fs28 \cf16 For API method arguments, please refer to that API's documentation}

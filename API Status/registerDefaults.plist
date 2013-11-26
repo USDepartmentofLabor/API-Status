@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_METHOD</key>
+	<string>Compliance/WHD/full</string>
+	<key>API_URL</key>
+	<string>/V1</string>
+	<key>API_HOST</key>
+	<string>http://api.dol.gov</string>
+	<key>API_KEY</key>
+	<string></string>
+</dict>
+</plist>
