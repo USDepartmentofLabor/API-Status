@@ -3,8 +3,8 @@
 //  API Status
 //
 //  Created by Michael Pulsifer on 11/22/13.
-//  Copyright (c) 2013 U.S. Department of Labor. All rights reserved.
 //
+//  Released to the public domain
 
 #import "APIPrefsWindowController.h"
 #import "DOLAppDelegate.h"
@@ -37,8 +37,7 @@ NSUserDefaults * prefs;
 {
     [super windowDidLoad];
     [self.window setDelegate:self];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self];
-    //NSLog(@"pref window!");
+
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     
     [self.keyTextField setStringValue:[prefs objectForKey:@"API_KEY"]];
@@ -48,12 +47,13 @@ NSUserDefaults * prefs;
 }
 
 -(BOOL)windowShouldClose:(id)sender {
-   // NSLog(@"about to close the window!");
+    // Save the user's preferences when they close the window
     [[NSUserDefaults standardUserDefaults] setObject:[self.keyTextField stringValue] forKey:@"API_KEY"];
     [[NSUserDefaults standardUserDefaults] setObject:[self.hostTextField stringValue] forKey:@"API_HOST"];
     [[NSUserDefaults standardUserDefaults] setObject:[self.urlTextField stringValue] forKey:@"API_URL"];
     [[NSUserDefaults standardUserDefaults] setObject:[self.methodTextField stringValue] forKey:@"API_METHOD"];
 
+    // Let the delegate know what's happening
     [(DOLAppDelegate *)[[NSApplication sharedApplication] delegate] windowWillClose];
     
     return YES;

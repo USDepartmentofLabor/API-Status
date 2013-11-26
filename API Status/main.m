@@ -3,8 +3,8 @@
 //  API Status
 //
 //  Created by Michael Pulsifer on 11/19/13.
-//  Copyright (c) 2013 U.S. Department of Labor. All rights reserved.
 //
+//  Released to the public domain
 
 #import <Cocoa/Cocoa.h>
 
