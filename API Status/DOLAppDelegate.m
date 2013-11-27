@@ -86,6 +86,12 @@ NSUserDefaults * prefs;
         // handle error
     [self.statusItem setImage:[NSImage imageNamed:@"graybar.png"]];
     [self.statusItem setTitle:@"API Error"];
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"API Error";
+    notification.informativeText = error;
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 -(void)govDataRequest:(GOVDataRequest *)request didCompleteWithResults:(NSArray *)resultsArray andResponseTime:(float)timeInMS {
