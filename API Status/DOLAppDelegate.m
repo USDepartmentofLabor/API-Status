@@ -13,7 +13,7 @@
 
 @implementation DOLAppDelegate
 
-@synthesize dataRequest, arrayOfResults, dictionaryOfResults, preferencesMenuItem;
+@synthesize dataRequest, arrayOfResults, dictionaryOfResults, preferencesMenuItem, resendMenuItem;
 
 NSUserDefaults * prefs;
 
@@ -48,6 +48,7 @@ NSUserDefaults * prefs;
     NSMenuItem *tItem = nil;
     tItem = [self.statusMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
     [tItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+    
     
     
     // Start off with a measurement
@@ -138,6 +139,11 @@ NSUserDefaults * prefs;
     }
     [self.windowController showWindow:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:_windowController];
+}
+
+-(IBAction)onHandleResend:(id)sender {
+    // handle user selection of the Send API Request - used when the user doesn't want to wait 15 minutes
+    [self submitRequest];
 }
 
 -(void)windowWillClose {

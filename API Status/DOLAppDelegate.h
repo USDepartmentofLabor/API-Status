@@ -19,12 +19,14 @@
     GOVDataRequest *dataRequest;
     
     IBOutlet NSMenuItem *preferencesMenuItem;
+    IBOutlet NSMenuItem *resendMenuItem;
 
 }
 
 @property (strong, nonatomic) IBOutlet NSMenu *statusMenu;
 @property (strong, nonatomic) NSStatusItem *statusItem;
 @property (strong, nonatomic) IBOutlet NSMenuItem *preferencesMenuItem;
+@property (strong, nonatomic) IBOutlet NSMenuItem *resendMenuItem;
 @property (nonatomic, strong) APIPrefsWindowController *windowController;
 
 @property (nonatomic)NSArray *arrayOfResults;
@@ -40,6 +42,7 @@
 
 -(void)submitRequest;
 -(IBAction)onHandlePrefs:(id) sender;
+-(IBAction)onHandleResend:(id)sender;
 -(void)windowWillClose;
 
 @end

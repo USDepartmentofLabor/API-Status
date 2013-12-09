@@ -649,12 +649,19 @@
         <customObject id="494" customClass="DOLAppDelegate">
             <connections>
                 <outlet property="preferencesMenuItem" destination="Ery-Sh-FEL" id="dOw-Ug-Fuh"/>
+                <outlet property="resendMenuItem" destination="QhT-jg-IkB" id="epg-j0-sAH"/>
                 <outlet property="statusMenu" destination="ByA-MM-84M" id="ca6-SN-qQF"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
         <menu id="ByA-MM-84M">
             <items>
+                <menuItem title="Send API Request" id="QhT-jg-IkB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="onHandleResend:" target="494" id="yj9-pT-llQ"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Preferences" id="Ery-Sh-FEL">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
